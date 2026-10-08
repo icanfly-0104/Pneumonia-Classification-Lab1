@@ -48,7 +48,8 @@ def customDataLoader_ResNet(
         aug_Rotation=10,
         aug_Scaling=0.1,
         aug_Brightness=0.0, 
-        aug_Contrast=0.3):
+        aug_Contrast=0.3,
+        batch_size=128):
 
     normalize = transforms.Normalize(
         mean=[0.485, 0.456, 0.406],
@@ -146,12 +147,12 @@ def customDataLoader_ResNet(
 
 
     # =========================================================
-    # Patient-level 99% / 1% split
+    # Patient-level 90% / 10% split
     # =========================================================
 
     train_groups, val_groups = train_test_split(
         group_ids,
-        test_size=0.01,
+        test_size=0.1,
         random_state=42,
         stratify=group_labels,
         shuffle=True
@@ -245,19 +246,19 @@ def customDataLoader_ResNet(
 
     train_loader = DataLoader(
         train_dataset,
-        batch_size=128,
+        batch_size=batch_size,
         shuffle=True
     )
 
     val_loader = DataLoader(
         val_dataset,
-        batch_size=128,
+        batch_size=batch_size,
         shuffle=False
     )
 
     test_loader = DataLoader(
         test_dataset,
-        batch_size=128,
+        batch_size=batch_size,
         shuffle=False
     )
 

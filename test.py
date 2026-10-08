@@ -153,7 +153,7 @@ if __name__ == '__main__':
     print(f'## Now using {device} as calculating device ##')
 
     #Load model weights
-    model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
+    model = None
     if(args.model == 'resnet18'):
         if(args.weight == 'pretrain'):
             model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
@@ -171,6 +171,8 @@ if __name__ == '__main__':
             model = models.resnet101(weights=models.ResNet101_Weights.DEFAULT)
         else:
             model = models.resnet101()
+    else:
+        model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
 
     model.fc = nn.Linear(model.fc.in_features, 2)
 
